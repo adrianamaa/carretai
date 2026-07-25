@@ -86,7 +86,6 @@ export default function Home() {
       {/* the artifact */}
       {result && (
         <article className="launch-card paper-grain mt-14 overflow-hidden">
-          <div className="dogear" aria-hidden />
           <div className="px-8 pt-8 sm:px-10">
             {/* meta row: printer's mark + label + stamp */}
             <div
@@ -188,17 +187,21 @@ export default function Home() {
 
           {/* perforated stub */}
           <div className="perforation reveal mt-10" style={delay()}>
-            <div className="flex items-baseline justify-between px-8 py-5 sm:px-10">
-              <span className="label text-[var(--card-muted)]">
-                hecho con carretai
-              </span>
-              <span className="label font-semibold text-[var(--card-accent)]">
-                echas la carreta → cachan
-              </span>
+            <div className="flex items-center justify-between px-8 py-5 sm:px-10">
+              <div>
+                <p className="label text-[var(--card-muted)]">
+                  hecho con carretai
+                </p>
+                <p className="label mt-1 font-semibold text-[var(--card-accent)]">
+                  echas la carreta → cachan
+                </p>
+              </div>
+              <div className="barcode" aria-hidden />
             </div>
           </div>
         </article>
       )}
+      {result && <div className="sawtooth" aria-hidden />}
     </div>
   );
 }
