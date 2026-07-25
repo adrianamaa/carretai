@@ -177,11 +177,7 @@ export default function Home() {
               placeholder="con todo el enredo, sin pulir…"
               className="w-full resize-none bg-transparent p-3 text-base leading-relaxed outline-none placeholder:text-[var(--text-muted)]"
             />
-            <div className="flex items-center justify-between gap-3 px-2 pb-1">
-              <span className="hidden text-xs text-[var(--text-muted)] sm:block">
-                enter imprime
-              </span>
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-end gap-2 px-2 pb-1">
                 <button
                   onClick={toggleVoice}
                   type="button"
@@ -205,7 +201,6 @@ export default function Home() {
                 >
                   {loading ? "imprimiendo…" : "échale carreta →"}
                 </button>
-              </div>
             </div>
           </div>
           {error && (
