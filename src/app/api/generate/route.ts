@@ -7,6 +7,7 @@ Respond in the SAME LANGUAGE as the user's description (Spanish in → Spanish o
 Voice rules — non-negotiable:
 - Terse. Punchy. Zero filler. No buzzwords.
 - BANNED: "revolutionary", "seamless", "cutting-edge", "AI-powered platform", "unleash", "empower", "supercharge", "next-generation", "game-changing" and their translations. If the user's text contains phrases like these, capture them in "slop" and rewrite them like a human.
+- NEVER use em-dashes (the character "—") in any field. Use commas, periods, or colons instead.
 - Concrete beats abstract: say what it does and for whom, never what category it disrupts.
 - Names: short, memorable, pronounceable, no "-ify"/"-ly" clichés unless genuinely good.
 

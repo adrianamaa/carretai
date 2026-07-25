@@ -11,8 +11,16 @@ One-screen app: paste messy project description → Groq → names / one-liner /
 - **canvas-design** — the 1000×1000 project-logo.png deliverable (max 500kb)
 - **vercel-react-best-practices** — React 19 / Next 16 patterns
 - **shadcn MCP** — available for components (prefer custom when taste is the point)
+- **playwright MCP** — visual QA loop: screenshot every design change before calling it done
 - **ship-it** — gated deploy when going live
 - **vercel:deploy / vercel:env** — mirror-repo deploy + GROQ_API_KEY env
+
+## Design direction (LOCKED 2026-07-24)
+Street-print artifact. Dark neutral workbench (the machine) + paper-white card (the printed
+object). Display: **Archivo Black via next/font** (self-hosted, works offline — the Adobe kit
+NEVER loaded, don't reintroduce it). Accent: ONE electric fucsia, CTA + key marks only.
+No cream/amber (flagged slop palette). No em-dashes anywhere, incl. Groq output. Perforated
+stub stays — it's the memorable detail. Labels: Geist Mono uppercase, rationed.
 
 ## Constraints
 - Built from zero tonight; ~5 focused hours. One killer screen, no feature creep.
