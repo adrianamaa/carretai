@@ -139,8 +139,13 @@ export default function Home() {
     <div className="w-full pb-24">
       {/* the giant wordmark, edge to edge */}
       <header className="px-2 pt-2">
-        <h1 className="wordmark-hero reveal" style={delay()}>
-          carretai
+        <h1 className="reveal" style={delay()}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/wordmark.svg"
+            alt="carretai"
+            className="h-auto w-full"
+          />
         </h1>
       </header>
 
