@@ -23,9 +23,11 @@ export function CursorDot() {
     };
     window.addEventListener("pointermove", move, { passive: true });
     document.documentElement.addEventListener("pointerleave", hide);
+    window.addEventListener("keydown", hide);
     return () => {
       window.removeEventListener("pointermove", move);
       document.documentElement.removeEventListener("pointerleave", hide);
+      window.removeEventListener("keydown", hide);
     };
   }, []);
 

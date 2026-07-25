@@ -161,48 +161,56 @@ export default function Home() {
           >
             tu proyecto, así como lo tienes en la cabeza
           </label>
-          <textarea
-            id="project"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                generate();
-              }
-            }}
-            rows={6}
-            placeholder="con todo el enredo, sin pulir…"
-            className="pill-box mt-3 w-full resize-none p-6 text-base leading-relaxed outline-none transition-[border-color] duration-[var(--duration-fast)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
-          />
-          <div className="mt-5 flex flex-wrap items-center gap-4">
-            <button
-              onClick={generate}
-              disabled={loading || input.trim().length < 10}
-              className="print-key"
-            >
-              {loading ? "imprimiendo…" : "échale carreta →"}
-            </button>
-            <button
-              onClick={toggleVoice}
-              type="button"
-              aria-label={listening ? "parar dictado" : "dictar tu proyecto"}
-              className={`flex h-[52px] w-[52px] items-center justify-center rounded-full border-[1.5px] transition-colors duration-[var(--duration-fast)] ${
-                listening
-                  ? "animate-pulse border-[var(--accent)] bg-[var(--accent)] text-[var(--on-accent)]"
-                  : "border-[var(--text)] bg-[var(--surface)] text-[var(--text)]"
-              }`}
-            >
-              {listening ? (
-                <StopIcon size={20} weight="fill" />
-              ) : (
-                <MicrophoneIcon size={22} weight="regular" />
-              )}
-            </button>
-            {error && (
-              <p className="text-sm text-[var(--accent)]">{error}</p>
-            )}
+          {/* AI-chat composer: everything lives inside one box */}
+          <div className="composer pill-box mt-3 p-3">
+            <textarea
+              id="project"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  generate();
+                }
+              }}
+              rows={4}
+              placeholder="con todo el enredo, sin pulir…"
+              className="w-full resize-none bg-transparent p-3 text-base leading-relaxed outline-none placeholder:text-[var(--text-muted)]"
+            />
+            <div className="flex items-center justify-between gap-3 px-2 pb-1">
+              <span className="hidden text-xs text-[var(--text-muted)] sm:block">
+                enter imprime
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={toggleVoice}
+                  type="button"
+                  aria-label={listening ? "parar dictado" : "dictar tu proyecto"}
+                  className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-[var(--duration-fast)] ${
+                    listening
+                      ? "animate-pulse bg-[var(--accent)] text-[var(--on-accent)]"
+                      : "text-[var(--text)] hover:bg-[rgba(20,20,19,0.08)]"
+                  }`}
+                >
+                  {listening ? (
+                    <StopIcon size={20} weight="fill" />
+                  ) : (
+                    <MicrophoneIcon size={22} weight="regular" />
+                  )}
+                </button>
+                <button
+                  onClick={generate}
+                  disabled={loading || input.trim().length < 10}
+                  className="print-key"
+                >
+                  {loading ? "imprimiendo…" : "échale carreta →"}
+                </button>
+              </div>
+            </div>
           </div>
+          {error && (
+            <p className="mt-3 text-sm text-[var(--accent)]">{error}</p>
+          )}
         </section>
 
       {/* the artifact — a literal thermal receipt, fed out of the printer */}

@@ -120,9 +120,12 @@ body {
   transform: translateY(1px) scale(0.99);
 }
 .print-key:disabled {
-  background: transparent;
-  color: var(--text-muted);
-  border-color: rgba(20, 20, 19, 0.35);
+  opacity: 0.4;
+}
+
+/* composer focus: the whole box lights up, not the textarea */
+.composer:focus-within {
+  border-color: var(--accent);
 }
 
 /* display face — Archivo Black, riso poster scale */
