@@ -11,18 +11,21 @@ Hacker:
 
 ## What it is
 
+**Live at [carretai.vercel.app](https://carretai.vercel.app)**
+
 Every build night ends the same way: great builds that lose the room in the first
-sentence. Carretai fixes the part engineers skip — **the story**.
+sentence. Carretai fixes the part engineers skip: **the story**.
 
-Paste a messy description of what you built. Get back:
+Paste (or dictate, by voice) a messy description of what you built. Get back:
 
-- a sharp **name** (with alternatives, and why)
+- a sharp **name** (with alternatives)
 - a **one-liner** that passes the "you get it in 5 seconds" test
 - **homepage hero copy** (headline + subhead)
-- a timed **2-minute pitch outline** (hook · what · demo · why · close)
-- your generic AI-slop phrases, **rewritten like a human**
+- a timed **2-minute pitch** whose items sum to exactly 2:00
+- your generic AI-slop phrases, struck through and **rewritten like a human**
 
-…rendered on a launch card with actual design taste, ready to keep and share.
+…printed live as a **thermal receipt**: order number, real timestamp, sawtooth
+cut, barcode, ITEMS + TOTAL. Downloadable as an image you'll actually want to keep.
 
 ## Stack
 
