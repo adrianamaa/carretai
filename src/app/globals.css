@@ -83,13 +83,24 @@ body {
   color: var(--text);
 }
 
-/* pill controls — Uncut lock: thin ink border, flat */
+/* pill controls — Uncut lock: thin ink border, flat, ink-invert on hover */
 .pill {
   border: 1.5px solid var(--text);
   border-radius: 999px;
   background: var(--surface);
   font-size: 0.9375rem;
   padding: 0.45rem 1.1rem;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+button.pill:hover {
+  background: var(--text);
+  color: var(--card-bg);
+}
+button.pill:active {
+  transform: translateY(1px);
 }
 
 .pill-box {
