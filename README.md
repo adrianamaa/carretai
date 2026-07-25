@@ -3,7 +3,7 @@
 **carreta** (CO: *echar carreta* — to spin the story) + **cachai** (CL: *you get it?*).
 You spin the story. They get it.
 
-<img src="./project-logo.png" alt="Carretai logo" width="200" />
+<img src="./project-logo.png?v=2" alt="Carretai logo" width="200" />
 
 Hacker:
 
