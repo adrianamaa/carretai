@@ -70,42 +70,30 @@ export default function Home() {
   const hora = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
   return (
-    <div className="relative mx-auto w-full max-w-3xl px-6 pb-20 pt-8">
-      <div className="machine-grid" aria-hidden />
-
-      {/* workbench chrome */}
-      <header className="relative mb-16 flex items-baseline justify-between">
-        <h1 className="display text-xl tracking-tight">
+    <div className="w-full pb-24">
+      {/* the giant wordmark, edge to edge */}
+      <header className="px-2 pt-2">
+        <h1 className="wordmark-hero reveal" style={delay()}>
           carretai<span className="text-[var(--accent)]">.</span>
         </h1>
-        <p className="label text-[var(--text-muted)]">build night bogotá</p>
       </header>
 
-      {/* the statement */}
-      <section className="relative">
-        <h2 className="display text-6xl leading-[0.95] tracking-tight sm:text-8xl">
-          <span className="reveal block" style={delay()}>
-            echas la
-          </span>
-          <span className="reveal block" style={delay()}>
-            carreta,
-          </span>
-          <span
-            className="reveal block text-[var(--accent)]"
-            style={delay()}
-          >
-            cachan.
-          </span>
-        </h2>
-        <p
-          className="reveal mt-6 max-w-md text-lg leading-snug text-[var(--text-muted)] [text-wrap:pretty]"
+      <div className="mx-auto w-full max-w-2xl px-6">
+        {/* counter row */}
+        <div
+          className="reveal mt-4 flex items-center justify-between"
           style={delay()}
         >
-          pega tu proyecto enredado y sale tu pitch de 2 minutos, impreso en
-          un recibo.
-        </p>
+          <p className="max-w-sm leading-snug text-[var(--text-muted)] [text-wrap:pretty]">
+            pega tu proyecto enredado y sale tu pitch de 2 minutos, impreso
+            en un recibo. echas la carreta, cachan.
+          </p>
+          <span className="pill hidden shrink-0 sm:inline-block">
+            build night bogotá
+          </span>
+        </div>
 
-        <div className="reveal mt-12" style={delay()}>
+        <section className="reveal mt-10" style={delay()}>
           <label htmlFor="project" className="label text-[var(--text-muted)]">
             tu proyecto, así como lo tienes en la cabeza
           </label>
@@ -115,7 +103,7 @@ export default function Home() {
             onChange={(e) => setInput(e.target.value)}
             rows={6}
             placeholder="pega acá la descripción cruda, sin pulir, con todo el enredo…"
-            className="mt-3 w-full resize-none border-2 border-[var(--border)] bg-[var(--surface)] p-5 font-mono text-[0.9375rem] leading-relaxed outline-none transition-[border-color] duration-[var(--duration-fast)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
+            className="pill-box mt-3 w-full resize-none p-6 font-mono text-[0.9375rem] leading-relaxed outline-none transition-[border-color] duration-[var(--duration-fast)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
           />
           <div className="mt-5 flex items-center gap-5">
             <button
@@ -129,8 +117,7 @@ export default function Home() {
               <p className="font-mono text-sm text-[var(--accent)]">{error}</p>
             )}
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* the artifact — a literal thermal receipt */}
       {result && (
@@ -283,6 +270,7 @@ export default function Home() {
           <div className="sawtooth" aria-hidden />
         </div>
       )}
+      </div>
     </div>
   );
 }

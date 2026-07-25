@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* workbench (the machine) — neutral near-black, no warm cast */
-  --bg: #0f0f0f;
-  --surface: #181818;
-  --text: #ededed;
-  --text-muted: rgba(237, 237, 237, 0.55);
-  --border: rgba(237, 237, 237, 0.14);
+  /* workbench (the counter) — flat concrete grey, Uncut lock */
+  --bg: #c4c3bf;
+  --surface: #cecdc8;
+  --text: #141413;
+  --text-muted: rgba(20, 20, 19, 0.55);
+  --border: #141413;
 
   /* riso ink 2: fluoro fucsia — second print pass only */
-  --accent: #f01a72;
-  --accent-hover: #ff2e82;
+  --accent: #e8125f;
+  --accent-hover: #c90d50;
   --on-accent: #ffffff;
 
   /* the artifact (printed sheet) — paper + ink */
@@ -42,50 +42,55 @@ body {
   font-family: var(--font-archivo), system-ui, sans-serif;
 }
 
-/* the machine room — faint register grid, fixed and inert */
-.machine-grid {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(237, 237, 237, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(237, 237, 237, 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 100%);
+/* the giant wordmark — edge to edge, Uncut style */
+.wordmark-hero {
+  font-family: var(--font-archivo-black), var(--font-archivo), sans-serif;
+  font-size: clamp(3.5rem, 20.5vw, 19rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--text);
 }
 
-/* the print key */
-.print-key {
-  font-family: var(--font-geist-mono), monospace;
+/* pill controls — Uncut lock: thin ink border, flat */
+.pill {
+  border: 1.5px solid var(--text);
+  border-radius: 999px;
+  background: var(--surface);
   font-size: 0.9375rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  padding: 0.45rem 1.1rem;
+}
+
+.pill-box {
+  border: 1.5px solid var(--text);
+  border-radius: 28px;
+  background: var(--surface);
+}
+
+/* the print key — flat fucsia pill */
+.print-key {
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  border-radius: 999px;
   background: var(--accent);
   color: var(--on-accent);
-  padding: 1.1rem 2rem;
-  border: none;
-  box-shadow:
-    0 3px 0 0 #8f0a45,
-    0 10px 24px rgba(240, 26, 114, 0.25);
+  padding: 0.9rem 2.2rem;
+  border: 1.5px solid var(--accent);
   transition:
     transform var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out),
     background-color var(--duration-fast) var(--ease-out);
 }
 .print-key:hover:not(:disabled) {
   background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 .print-key:active:not(:disabled) {
-  transform: translateY(3px);
-  box-shadow:
-    0 0 0 0 #8f0a45,
-    0 4px 12px rgba(240, 26, 114, 0.2);
+  transform: translateY(1px) scale(0.99);
 }
 .print-key:disabled {
-  opacity: 0.35;
-  box-shadow: 0 3px 0 0 rgba(143, 10, 69, 0.4);
+  background: transparent;
+  color: var(--text-muted);
+  border-color: rgba(20, 20, 19, 0.35);
 }
 
 /* display face — Archivo Black, riso poster scale */
@@ -136,11 +141,11 @@ body {
   color: var(--card-text);
   border-radius: 0;
   transform: rotate(-0.6deg);
-  /* sits on the desk: soft real shadow, print graphics stay hard-edged */
+  /* sits on the counter: soft real shadow, print graphics stay hard-edged */
   box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.4),
-    0 12px 32px rgba(0, 0, 0, 0.45),
-    0 28px 70px rgba(0, 0, 0, 0.35);
+    0 1px 2px rgba(0, 0, 0, 0.22),
+    0 12px 28px rgba(0, 0, 0, 0.22),
+    0 26px 60px rgba(0, 0, 0, 0.14);
 }
 
 /* torn sawtooth bottom edge — thermal receipt cut */
@@ -153,7 +158,7 @@ body {
     linear-gradient(-45deg, #f1f1ea 8px, transparent 0);
   background-size: 16px 16px;
   background-repeat: repeat-x;
-  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 5px 6px rgba(0, 0, 0, 0.18));
 }
 
 /* photographed-paper grain, card only */
