@@ -11,12 +11,27 @@ type Result = {
   slop: { before: string; after: string }[];
 };
 
-const PITCH_STEPS: { key: keyof Result["pitch"]; label: string; time: string }[] = [
-  { key: "hook", label: "hook", time: "0:00" },
-  { key: "what", label: "qué construiste", time: "0:20" },
-  { key: "demo", label: "demo en vivo", time: "0:40" },
-  { key: "why", label: "tech + por qué", time: "1:30" },
-  { key: "close", label: "cierre", time: "1:40" },
+const PITCH_STEPS: {
+  key: keyof Result["pitch"];
+  label: string;
+  time: string;
+  dur: string;
+}[] = [
+  { key: "hook", label: "hook", time: "0:00", dur: "0:20" },
+  { key: "what", label: "qué construiste", time: "0:20", dur: "0:20" },
+  { key: "demo", label: "demo en vivo", time: "0:40", dur: "0:50" },
+  { key: "why", label: "tech + por qué", time: "1:30", dur: "0:10" },
+  { key: "close", label: "cierre", time: "1:40", dur: "0:20" },
+];
+
+const DIAS = [
+  "DOMINGO",
+  "LUNES",
+  "MARTES",
+  "MIÉRCOLES",
+  "JUEVES",
+  "VIERNES",
+  "SÁBADO",
 ];
 
 export default function Home() {
@@ -51,7 +66,7 @@ export default function Home() {
 
   const MESES = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
   const now = new Date();
-  const fecha = `${String(now.getDate()).padStart(2, "0")} ${MESES[now.getMonth()]} ${now.getFullYear()}`;
+  const fecha = `${DIAS[now.getDay()]}, ${String(now.getDate()).padStart(2, "0")} ${MESES[now.getMonth()]} ${now.getFullYear()}`;
   const hora = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
   return (
@@ -96,13 +111,12 @@ export default function Home() {
             <div className="px-7 pt-8">
               {/* printed store header */}
               <div className="reveal text-center" style={delay()}>
-                <p className="display text-xl tracking-tight">
+                <p className="display text-2xl tracking-tight">
                   carretai<span className="text-[var(--card-accent)]">.</span>
                 </p>
                 <p className="thermal-label mt-2">build night bogotá</p>
-                <p className="thermal mt-1">
-                  {fecha} {hora} · PEDIDO #001
-                </p>
+                <p className="thermal mt-2">{fecha}</p>
+                <p className="thermal">ORDEN #0001 · {hora}</p>
               </div>
 
               <p className="asterisks my-5" aria-hidden>
@@ -156,32 +170,46 @@ export default function Home() {
 
               <div className="dashed-rule my-6" aria-hidden />
 
-              {/* pitch timeline */}
+              {/* the priced item table — tu pitch */}
               <div className="reveal" style={delay()}>
-                <p className="thermal-label text-center">tu pitch, 2 minutos</p>
-                <ol className="mt-4 space-y-4">
+                <p className="thermal-label text-center">tu pitch</p>
+                <div className="thermal mt-3 grid grid-cols-[2.5rem_1fr_auto] gap-x-2 border-y border-[#26241f] py-1 font-bold uppercase">
+                  <span>cant</span>
+                  <span>item</span>
+                  <span className="text-right">min</span>
+                </div>
+                <ol className="mt-2 space-y-3">
                   {PITCH_STEPS.map((s) => (
-                    <li key={s.key} className="grid grid-cols-[3rem_1fr] gap-3">
-                      <span className="thermal pt-px font-bold tabular-nums text-[var(--card-accent)]">
-                        {s.time}
-                      </span>
-                      <div>
-                        <p className="thermal-label">{s.label}</p>
-                        <p className="thermal mt-0.5 [text-wrap:pretty]">
-                          {result.pitch[s.key]}
-                        </p>
+                    <li key={s.key}>
+                      <div className="thermal grid grid-cols-[2.5rem_1fr_auto] gap-x-2 font-bold uppercase">
+                        <span>1</span>
+                        <span>{s.label}</span>
+                        <span className="text-right tabular-nums">{s.dur}</span>
                       </div>
+                      <p className="thermal mt-0.5 pl-[2.5rem] opacity-80 [text-wrap:pretty]">
+                        {result.pitch[s.key]}
+                      </p>
                     </li>
                   ))}
                 </ol>
+                <div className="mt-3 border-t border-[#26241f] pt-2">
+                  <div className="thermal flex justify-between">
+                    <span>ITEMS: {PITCH_STEPS.length}</span>
+                    <span></span>
+                  </div>
+                  <div className="thermal flex justify-between text-[0.9375rem] font-bold">
+                    <span>TOTAL</span>
+                    <span className="tabular-nums">2:00</span>
+                  </div>
+                </div>
               </div>
 
-              {/* slop rewrites */}
+              {/* descuentos — slop rewrites */}
               {result.slop.length > 0 && (
                 <>
                   <div className="dashed-rule my-6" aria-hidden />
                   <div className="reveal" style={delay()}>
-                    <p className="thermal-label text-center">menos slop</p>
+                    <p className="thermal-label text-center">descuento slop</p>
                     <ul className="mt-3 space-y-3">
                       {result.slop.map((s) => (
                         <li key={s.before}>
@@ -196,21 +224,12 @@ export default function Home() {
                 </>
               )}
 
-              {/* total */}
+              {/* pos footer block */}
               <div className="dashed-rule my-6" aria-hidden />
-              <div className="reveal" style={delay()}>
-                <div className="thermal flex justify-between">
-                  <span>SUBTOTAL</span>
-                  <span>1 NOMBRE + {Math.max(result.names.length - 1, 0)} ALT</span>
-                </div>
-                <div className="thermal flex justify-between">
-                  <span></span>
-                  <span>1 HERO + {result.bullets.length} ITEMS</span>
-                </div>
-                <div className="thermal mt-1 flex justify-between font-bold">
-                  <span>TOTAL</span>
-                  <span>1 PITCH DE 2:00</span>
-                </div>
+              <div className="reveal thermal" style={delay()}>
+                <p>ATENDIDO POR: GROQ (LLAMA)</p>
+                <p>CAJA: CLAUDE CODE</p>
+                <p>CLIENTE: {result.names[0].name.toUpperCase()}</p>
               </div>
 
               <p className="asterisks mt-6" aria-hidden>
