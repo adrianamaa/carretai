@@ -148,6 +148,42 @@ body {
     0 26px 60px rgba(0, 0, 0, 0.14);
 }
 
+/* printer slot — the paper comes out of here */
+.print-slot {
+  position: relative;
+  z-index: 2;
+  height: 16px;
+  border-radius: 999px;
+  background: #141413;
+  box-shadow:
+    inset 0 3px 5px rgba(0, 0, 0, 0.65),
+    0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* thermal feed — paper grows out of the slot */
+.print-feed {
+  overflow: hidden;
+  margin-top: -8px;
+  padding: 0 6px 40px;
+}
+.print-feed.printing {
+  animation: feed 3.4s linear forwards;
+}
+@keyframes feed {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 4000px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .print-feed.printing {
+    animation: none;
+    max-height: none;
+  }
+}
+
 /* torn sawtooth bottom edge — thermal receipt cut */
 .sawtooth {
   height: 12px;

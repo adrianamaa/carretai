@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Result = {
   names: { name: string; why: string }[];
@@ -39,6 +39,30 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
+  const printerRef = useRef<HTMLDivElement>(null);
+  const receiptRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (result) {
+      printerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [result]);
+
+  async function downloadReceipt() {
+    if (!receiptRef.current || !result) return;
+    const { toPng } = await import("html-to-image");
+    const dataUrl = await toPng(receiptRef.current, { pixelRatio: 2 });
+    const a = document.createElement("a");
+    a.download = `carretai-${result.names[0].name.toLowerCase().replace(/\s+/g, "-")}.png`;
+    a.href = dataUrl;
+    a.click();
+  }
+
+  function newOrder() {
+    setResult(null);
+    setInput("");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   async function generate() {
     if (loading || input.trim().length < 10) return;
@@ -119,9 +143,12 @@ export default function Home() {
           </div>
         </section>
 
-      {/* the artifact — a literal thermal receipt */}
+      {/* the artifact — a literal thermal receipt, fed out of the printer */}
       {result && (
-        <div className="mx-auto mt-14 w-full max-w-[420px]">
+        <div ref={printerRef} className="mx-auto mt-14 w-full max-w-[460px] scroll-mt-8">
+          <div className="print-slot" aria-hidden />
+          <div className="print-feed printing">
+            <div ref={receiptRef} className="px-[14px] pt-4">
           <article className="launch-card paper-grain overflow-hidden">
             <span className="stamp absolute right-4 top-5">pitch 2:00</span>
             <div className="px-7 pt-8">
@@ -268,6 +295,19 @@ export default function Home() {
             </div>
           </article>
           <div className="sawtooth" aria-hidden />
+            </div>
+          </div>
+          <div
+            className="reveal mt-6 flex justify-center gap-3"
+            style={{ "--delay": "3400ms" } as React.CSSProperties}
+          >
+            <button onClick={downloadReceipt} className="pill cursor-pointer">
+              descargar recibo ↓
+            </button>
+            <button onClick={newOrder} className="pill cursor-pointer">
+              nuevo pedido
+            </button>
+          </div>
         </div>
       )}
       </div>
