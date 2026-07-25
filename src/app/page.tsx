@@ -153,6 +153,12 @@ export default function Home() {
           pega o dicta tu proyecto enredado y sale tu pitch de 2 minutos,
           impreso en un recibo.
         </p>
+        <p
+          className="reveal mt-2 text-sm text-[var(--text-muted)]"
+          style={delay()}
+        >
+          de carreta y cachai. no de ai.
+        </p>
 
         <section className="reveal mt-10" style={delay()}>
           <label
@@ -334,7 +340,7 @@ export default function Home() {
               {/* pos footer block */}
               <div className="dashed-rule my-6" aria-hidden />
               <div className="reveal thermal" style={delay()}>
-                <p>ATENDIDO POR: GROQ (LLAMA)</p>
+                <p>ATENDIDO POR: GROQ</p>
                 <p>CAJA: CLAUDE CODE</p>
                 <p>CLIENTE: {result.names[0].name.toUpperCase()}</p>
               </div>
@@ -353,7 +359,7 @@ export default function Home() {
                 <div className="barcode" aria-hidden />
                 <p className="thermal-label">hecho con carretai</p>
                 <p className="thermal-label text-[var(--card-accent)]">
-                  echas la carreta, cachan
+                  echas la carreta, ¿cachai?
                 </p>
               </div>
             </div>

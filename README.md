@@ -26,7 +26,7 @@ Paste a messy description of what you built. Get back:
 
 ## Stack
 
-Next.js 16 · Tailwind 4 · Groq (llama) · built from zero at Build Night Bogotá with Claude Code, by a designer who ships.
+Next.js 16 · Tailwind 4 · Groq (gpt-oss-120b) · built from zero at Build Night Bogotá with Claude Code, by a designer who ships.
 
 ## Run it
 

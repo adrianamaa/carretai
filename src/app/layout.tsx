@@ -21,7 +21,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "carretai: echas la carreta, cachan",
+  title: "carretai: echas la carreta, ¿cachai?",
   description:
     "paste your rough project, get it back pitch-ready: name, one-liner, hero copy and a 2-minute pitch.",
 };
