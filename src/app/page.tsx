@@ -64,6 +64,47 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  const [listening, setListening] = useState(false);
+  const recognitionRef = useRef<{ stop: () => void } | null>(null);
+
+  function toggleVoice() {
+    if (listening) {
+      recognitionRef.current?.stop();
+      return;
+    }
+    type SRResult = { resultIndex: number; results: { [i: number]: { 0: { transcript: string } }; length: number } };
+    type SRClass = new () => {
+      lang: string;
+      continuous: boolean;
+      interimResults: boolean;
+      onresult: (e: SRResult) => void;
+      onend: () => void;
+      onerror: () => void;
+      start: () => void;
+      stop: () => void;
+    };
+    const w = window as unknown as { SpeechRecognition?: SRClass; webkitSpeechRecognition?: SRClass };
+    const SR = w.SpeechRecognition ?? w.webkitSpeechRecognition;
+    if (!SR) {
+      setError("tu navegador no soporta dictado, escribe el enredo");
+      return;
+    }
+    const rec = new SR();
+    rec.lang = "es-CO";
+    rec.continuous = true;
+    rec.interimResults = false;
+    rec.onresult = (e) => {
+      let t = "";
+      for (let i = e.resultIndex; i < e.results.length; i++) t += e.results[i][0].transcript;
+      if (t.trim()) setInput((prev) => (prev ? prev.trimEnd() + " " : "") + t.trim());
+    };
+    rec.onend = () => setListening(false);
+    rec.onerror = () => setListening(false);
+    recognitionRef.current = rec;
+    rec.start();
+    setListening(true);
+  }
+
   async function generate() {
     if (loading || input.trim().length < 10) return;
     setLoading(true);
@@ -104,32 +145,36 @@ export default function Home() {
 
       <div className="mx-auto w-full max-w-2xl px-6">
         {/* counter row */}
-        <div
-          className="reveal mt-4 flex items-center justify-between"
+        <p
+          className="reveal mt-5 max-w-lg text-xl leading-snug [text-wrap:pretty]"
           style={delay()}
         >
-          <p className="max-w-sm leading-snug text-[var(--text-muted)] [text-wrap:pretty]">
-            pega tu proyecto enredado y sale tu pitch de 2 minutos, impreso
-            en un recibo. echas la carreta, cachan.
-          </p>
-          <span className="pill hidden shrink-0 sm:inline-block">
-            build night bogotá
-          </span>
-        </div>
+          pega o dicta tu proyecto enredado y sale tu pitch de 2 minutos,
+          impreso en un recibo.
+        </p>
 
         <section className="reveal mt-10" style={delay()}>
-          <label htmlFor="project" className="label text-[var(--text-muted)]">
+          <label
+            htmlFor="project"
+            className="text-sm text-[var(--text-muted)]"
+          >
             tu proyecto, así como lo tienes en la cabeza
           </label>
           <textarea
             id="project"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                generate();
+              }
+            }}
             rows={6}
-            placeholder="pega acá la descripción cruda, sin pulir, con todo el enredo…"
-            className="pill-box mt-3 w-full resize-none p-6 font-mono text-[0.9375rem] leading-relaxed outline-none transition-[border-color] duration-[var(--duration-fast)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
+            placeholder="con todo el enredo, sin pulir…"
+            className="pill-box mt-3 w-full resize-none p-6 text-base leading-relaxed outline-none transition-[border-color] duration-[var(--duration-fast)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
           />
-          <div className="mt-5 flex items-center gap-5">
+          <div className="mt-5 flex flex-wrap items-center gap-4">
             <button
               onClick={generate}
               disabled={loading || input.trim().length < 10}
@@ -137,8 +182,18 @@ export default function Home() {
             >
               {loading ? "imprimiendo…" : "échale carreta →"}
             </button>
+            <button onClick={toggleVoice} className="pill" type="button">
+              {listening ? (
+                <span className="inline-flex items-center gap-2">
+                  <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[var(--accent)]" />
+                  escuchando… parar
+                </span>
+              ) : (
+                "dictar"
+              )}
+            </button>
             {error && (
-              <p className="font-mono text-sm text-[var(--accent)]">{error}</p>
+              <p className="text-sm text-[var(--accent)]">{error}</p>
             )}
           </div>
         </section>
@@ -183,39 +238,9 @@ export default function Home() {
 
               <div className="dashed-rule my-6" aria-hidden />
 
-              {/* hero */}
+              {/* the priced item table — tu pitch, first because it's what you say */}
               <div className="reveal" style={delay()}>
-                <p className="thermal-label text-center">hero</p>
-                <p className="thermal mt-2 text-center text-[0.9375rem] font-bold uppercase leading-snug [text-wrap:balance]">
-                  {result.hero.headline}
-                </p>
-                <p className="thermal mt-2 text-center [text-wrap:pretty]">
-                  {result.hero.subhead}
-                </p>
-              </div>
-
-              <div className="dashed-rule my-6" aria-hidden />
-
-              {/* items */}
-              <div className="reveal" style={delay()}>
-                <p className="thermal-label text-center">qué hace</p>
-                <ul className="mt-3 space-y-2">
-                  {result.bullets.map((b, i) => (
-                    <li key={b} className="thermal flex gap-3">
-                      <span className="shrink-0 font-bold text-[var(--card-accent)]">
-                        {i + 1}x
-                      </span>
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="dashed-rule my-6" aria-hidden />
-
-              {/* the priced item table — tu pitch */}
-              <div className="reveal" style={delay()}>
-                <p className="thermal-label text-center">tu pitch</p>
+                <p className="thermal-label text-center">tu pitch, dilo así</p>
                 <div className="thermal mt-3 grid grid-cols-[2.5rem_1fr_auto] gap-x-2 border-y border-[#26241f] py-1 font-bold uppercase">
                   <span>cant</span>
                   <span>item</span>
@@ -245,6 +270,30 @@ export default function Home() {
                     <span className="tabular-nums">2:00</span>
                   </div>
                 </div>
+              </div>
+
+              {/* para tu landing — copy assets, clearly not the spoken pitch */}
+              <div className="dashed-rule my-6" aria-hidden />
+              <div className="reveal" style={delay()}>
+                <p className="thermal-label text-center">
+                  para tu landing, no para decirlo
+                </p>
+                <p className="thermal mt-3 text-center text-[0.9375rem] font-bold uppercase leading-snug [text-wrap:balance]">
+                  {result.hero.headline}
+                </p>
+                <p className="thermal mt-1 text-center [text-wrap:pretty]">
+                  {result.hero.subhead}
+                </p>
+                <ul className="mt-4 space-y-2">
+                  {result.bullets.map((b, i) => (
+                    <li key={b} className="thermal flex gap-3">
+                      <span className="shrink-0 font-bold text-[var(--card-accent)]">
+                        {i + 1}x
+                      </span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* descuentos — slop rewrites */}
@@ -301,10 +350,10 @@ export default function Home() {
             className="reveal mt-6 flex justify-center gap-3"
             style={{ "--delay": "3400ms" } as React.CSSProperties}
           >
-            <button onClick={downloadReceipt} className="pill cursor-pointer">
+            <button onClick={downloadReceipt} className="pill">
               descargar recibo ↓
             </button>
-            <button onClick={newOrder} className="pill cursor-pointer">
+            <button onClick={newOrder} className="pill">
               nuevo pedido
             </button>
           </div>
