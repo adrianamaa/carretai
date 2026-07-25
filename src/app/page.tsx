@@ -140,7 +140,7 @@ export default function Home() {
       {/* the giant wordmark, edge to edge */}
       <header className="px-2 pt-2">
         <h1 className="wordmark-hero reveal" style={delay()}>
-          carretai<span className="text-[var(--accent)]">.</span>
+          carretai
         </h1>
       </header>
 
@@ -225,9 +225,7 @@ export default function Home() {
             <div className="px-7 pt-8">
               {/* printed store header */}
               <div className="reveal text-center" style={delay()}>
-                <p className="display text-2xl tracking-tight">
-                  carretai<span className="text-[var(--card-accent)]">.</span>
-                </p>
+                <p className="display text-2xl tracking-tight">carretai.</p>
                 <p className="thermal-label mt-2">build night bogotá</p>
                 <p className="thermal mt-2">{fecha}</p>
                 <p className="thermal">ORDEN #0001 · {hora}</p>
