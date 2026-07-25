@@ -21,7 +21,7 @@ Return ONLY valid JSON with exactly this shape:
     "what": "20s — what you built, one breath",
     "demo": "50s — what to show live, step by step, and the one moment that must land",
     "why": "10s — tech + why it matters",
-    "close": "20s — the ask: team, next step, contact"
+    "close": "20s — the ask: team, testers, collaborators, next step, contact. NEVER invent funding amounts or asks the user didn't mention"
   },
   "slop": [{"before": "generic phrase found or typical of this kind of project", "after": "human rewrite"}, ...1 to 3]
 }`;
