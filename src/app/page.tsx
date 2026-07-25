@@ -69,12 +69,12 @@ export default function Home() {
           onChange={(e) => setInput(e.target.value)}
           rows={5}
           placeholder="pega acá la descripción cruda, sin pulir, con todo el enredo…"
-          className="mt-3 w-full resize-none rounded-md border border-[var(--border)] bg-[var(--surface)] p-4 text-base leading-relaxed outline-none transition-[border-color] duration-[var(--duration-fast)] focus:border-[var(--accent)]"
+          className="mt-3 w-full resize-none border-2 border-[var(--border)] bg-[var(--surface)] p-4 text-base leading-relaxed outline-none transition-[border-color] duration-[var(--duration-fast)] focus:border-[var(--accent)]"
         />
         <button
           onClick={generate}
           disabled={loading || input.trim().length < 10}
-          className="mt-4 rounded-md bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--on-accent)] transition-[background-color,transform] duration-[var(--duration-fast)] hover:bg-[var(--accent-hover)] active:scale-[0.98] disabled:opacity-40"
+          className="mt-4 border-2 border-[var(--accent)] px-6 py-3 font-semibold text-[var(--accent)] transition-[background-color,color,transform] duration-[var(--duration-fast)] hover:bg-[var(--accent)] hover:text-[var(--on-accent)] active:translate-y-[1px] disabled:opacity-40"
         >
           {loading ? "echando carreta…" : "échale carreta →"}
         </button>
@@ -85,17 +85,21 @@ export default function Home() {
 
       {/* the artifact */}
       {result && (
-        <article className="launch-card mt-14 overflow-hidden">
+        <article className="launch-card paper-grain mt-14 overflow-hidden">
+          <div className="dogear" aria-hidden />
           <div className="px-8 pt-8 sm:px-10">
-            {/* meta row: label + stamp */}
+            {/* meta row: printer's mark + label + stamp */}
             <div
               className="reveal flex items-start justify-between"
               style={delay()}
             >
-              <span className="label text-[var(--card-muted)]">
-                carretai · build night bogotá
+              <span className="flex items-center gap-3">
+                <span className="hatch-mark" aria-hidden />
+                <span className="label text-[var(--card-muted)]">
+                  carretai · build night bogotá
+                </span>
               </span>
-              <span className="stamp">pitch 2:00</span>
+              <span className="stamp mr-4">pitch 2:00</span>
             </div>
 
             {/* name — the poster */}
@@ -114,7 +118,7 @@ export default function Home() {
               )}
             </div>
 
-            <div className="divider my-9" />
+            <div className="hatch my-9" aria-hidden />
 
             {/* hero copy */}
             <div className="reveal" style={delay()}>
@@ -142,7 +146,7 @@ export default function Home() {
               </ul>
             </div>
 
-            <div className="divider my-9" />
+            <div className="hatch my-9" aria-hidden />
 
             {/* pitch timeline */}
             <div className="reveal" style={delay()}>
