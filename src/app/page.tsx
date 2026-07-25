@@ -137,38 +137,30 @@ export default function Home() {
 
   return (
     <div className="w-full pb-24">
-      <div className="mx-auto w-full max-w-2xl px-6 pt-10">
-        {/* the wordmark, aligned to the content column */}
+      <div className="mx-auto w-full max-w-2xl px-6">
+        {/* AI-chat home: everything centered in the viewport */}
+        <div className="flex min-h-[88dvh] flex-col items-center justify-center">
         <header>
           <h1 className="reveal" style={delay()}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/wordmark.svg"
               alt="carretai"
-              className="h-auto w-full"
+              className="mx-auto w-auto"
+              style={{ height: "clamp(3rem, 6vw, 5.5rem)" }}
             />
           </h1>
         </header>
-        {/* counter row */}
         <p
-          className="reveal mt-5 max-w-lg text-xl leading-snug [text-wrap:pretty]"
+          className="reveal mt-6 max-w-md text-center text-xl leading-snug [text-wrap:pretty]"
           style={delay()}
         >
           pega o dicta tu proyecto enredado y sale tu pitch de 2 minutos,
           impreso en un recibo.
         </p>
-        <p
-          className="reveal mt-2 text-sm text-[var(--text-muted)]"
-          style={delay()}
-        >
-          de carreta y cachai. no de ai.
-        </p>
 
-        <section className="reveal mt-10" style={delay()}>
-          <label
-            htmlFor="project"
-            className="text-sm text-[var(--text-muted)]"
-          >
+        <section className="reveal mt-8 w-full" style={delay()}>
+          <label htmlFor="project" className="sr-only">
             tu proyecto, así como lo tienes en la cabeza
           </label>
           {/* AI-chat composer: everything lives inside one box */}
@@ -184,7 +176,7 @@ export default function Home() {
                 }
               }}
               rows={4}
-              placeholder="con todo el enredo, sin pulir…"
+              placeholder="tu proyecto, así como lo tienes en la cabeza…"
               className="w-full resize-none bg-transparent p-3 text-base leading-relaxed outline-none placeholder:text-[var(--text-muted)]"
             />
             <div className="flex items-center justify-end gap-2 px-2 pb-1">
@@ -214,9 +206,15 @@ export default function Home() {
             </div>
           </div>
           {error && (
-            <p className="mt-3 text-sm text-[var(--accent)]">{error}</p>
+            <p className="mt-3 text-center text-sm text-[var(--accent)]">
+              {error}
+            </p>
           )}
+          <p className="reveal mt-4 text-center text-sm text-[var(--text-muted)]" style={delay()}>
+            de carreta y cachai. no de ai.
+          </p>
         </section>
+        </div>
 
       {/* the artifact — a literal thermal receipt, fed out of the printer */}
       {result && (
