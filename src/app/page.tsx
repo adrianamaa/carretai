@@ -144,7 +144,8 @@ export default function Home() {
           <img
             src="/wordmark.svg"
             alt="carretai"
-            className="h-auto w-full"
+            className="w-auto"
+            style={{ height: "clamp(3.25rem, 15vw, 13.5rem)" }}
           />
         </h1>
       </header>
