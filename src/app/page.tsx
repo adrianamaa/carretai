@@ -236,9 +236,14 @@ export default function Home() {
                 * * * * * * * * * * * * * * * * * *
               </p>
 
-              {/* the name, printed big like the store logo */}
+              {/* the name, printed big like the store logo — auto-fits the paper */}
               <div className="reveal text-center" style={delay()}>
-                <p className="display text-4xl uppercase leading-[0.95] [text-wrap:balance] sm:text-5xl">
+                <p
+                  className="display uppercase leading-[0.95] [text-wrap:balance]"
+                  style={{
+                    fontSize: `${Math.min(52, Math.max(24, Math.round(430 / result.names[0].name.length)))}px`,
+                  }}
+                >
                   {result.names[0].name}
                 </p>
                 <p className="thermal mt-4 [text-wrap:pretty]">
