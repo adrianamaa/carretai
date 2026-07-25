@@ -49,6 +49,11 @@ export default function Home() {
   let d = 0;
   const delay = () => ({ "--delay": `${(d += 60)}ms` }) as React.CSSProperties;
 
+  const MESES = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
+  const now = new Date();
+  const fecha = `${String(now.getDate()).padStart(2, "0")} ${MESES[now.getMonth()]} ${now.getFullYear()}`;
+  const hora = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+
   return (
     <div className="mx-auto w-full max-w-2xl px-6 py-14">
       {/* workbench chrome */}
@@ -83,125 +88,153 @@ export default function Home() {
         )}
       </section>
 
-      {/* the artifact */}
+      {/* the artifact — a literal thermal receipt */}
       {result && (
-        <article className="launch-card paper-grain mt-14 overflow-hidden">
-          <div className="px-8 pt-8 sm:px-10">
-            {/* meta row: printer's mark + label + stamp */}
-            <div
-              className="reveal flex items-start justify-between"
-              style={delay()}
-            >
-              <span className="flex items-center gap-3">
-                <span className="hatch-mark" aria-hidden />
-                <span className="label text-[var(--card-muted)]">
-                  carretai · build night bogotá
-                </span>
-              </span>
-              <span className="stamp mr-4">pitch 2:00</span>
-            </div>
-
-            {/* name — the poster */}
-            <div className="reveal mt-9" style={delay()}>
-              <p className="display text-6xl uppercase leading-[0.95] [text-wrap:balance] sm:text-7xl">
-                {result.names[0].name}
-              </p>
-              <p className="mt-5 text-xl leading-snug [text-wrap:pretty]">
-                <span className="highlight">{result.oneliner}</span>
-              </p>
-              {result.names.length > 1 && (
-                <p className="label mt-5 text-[var(--card-muted)]">
-                  alt:&nbsp;
-                  {result.names.slice(1).map((n) => n.name).join(" / ")}
+        <div className="mx-auto mt-14 w-full max-w-[420px]">
+          <article className="launch-card paper-grain overflow-hidden">
+            <span className="stamp absolute right-4 top-5">pitch 2:00</span>
+            <div className="px-7 pt-8">
+              {/* printed store header */}
+              <div className="reveal text-center" style={delay()}>
+                <p className="display text-xl tracking-tight">
+                  carretai<span className="text-[var(--card-accent)]">.</span>
                 </p>
-              )}
-            </div>
+                <p className="thermal-label mt-2">build night bogotá</p>
+                <p className="thermal mt-1">
+                  {fecha} {hora} · PEDIDO #001
+                </p>
+              </div>
 
-            <div className="hatch my-9" aria-hidden />
-
-            {/* hero copy */}
-            <div className="reveal" style={delay()}>
-              <p className="label text-[var(--card-muted)]">hero</p>
-              <p className="display mt-3 text-3xl leading-tight [text-wrap:balance]">
-                {result.hero.headline}
+              <p className="asterisks my-5" aria-hidden>
+                * * * * * * * * * * * * * * * * * *
               </p>
-              <p className="mt-3 leading-relaxed text-[var(--card-muted)] [text-wrap:pretty]">
-                {result.hero.subhead}
-              </p>
-            </div>
 
-            {/* bullets */}
-            <div className="reveal mt-9" style={delay()}>
-              <p className="label text-[var(--card-muted)]">qué hace</p>
-              <ul className="mt-3 space-y-2">
-                {result.bullets.map((b) => (
-                  <li key={b} className="flex gap-3 leading-relaxed">
-                    <span aria-hidden className="font-semibold text-[var(--card-accent)]">
-                      →
-                    </span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              {/* the name, printed big like the store logo */}
+              <div className="reveal text-center" style={delay()}>
+                <p className="display text-4xl uppercase leading-[0.95] [text-wrap:balance] sm:text-5xl">
+                  {result.names[0].name}
+                </p>
+                <p className="thermal mt-4 [text-wrap:pretty]">
+                  <span className="highlight">{result.oneliner}</span>
+                </p>
+                {result.names.length > 1 && (
+                  <p className="thermal-label mt-3">
+                    alt: {result.names.slice(1).map((n) => n.name).join(" / ")}
+                  </p>
+                )}
+              </div>
 
-            <div className="hatch my-9" aria-hidden />
+              <div className="dashed-rule my-6" aria-hidden />
 
-            {/* pitch timeline */}
-            <div className="reveal" style={delay()}>
-              <p className="label text-[var(--card-muted)]">tu pitch, 2 minutos</p>
-              <ol className="mt-5 space-y-6">
-                {PITCH_STEPS.map((s) => (
-                  <li key={s.key} className="grid grid-cols-[3.5rem_1fr] gap-4">
-                    <span className="pt-0.5 font-mono text-sm font-semibold tabular-nums text-[var(--card-accent)]">
-                      {s.time}
-                    </span>
-                    <div>
-                      <p className="label text-[var(--card-muted)]">{s.label}</p>
-                      <p className="mt-1 leading-relaxed [text-wrap:pretty]">
-                        {result.pitch[s.key]}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
+              {/* hero */}
+              <div className="reveal" style={delay()}>
+                <p className="thermal-label text-center">hero</p>
+                <p className="thermal mt-2 text-center text-[0.9375rem] font-bold uppercase leading-snug [text-wrap:balance]">
+                  {result.hero.headline}
+                </p>
+                <p className="thermal mt-2 text-center [text-wrap:pretty]">
+                  {result.hero.subhead}
+                </p>
+              </div>
 
-            {/* slop rewrites */}
-            {result.slop.length > 0 && (
-              <div className="reveal mt-9" style={delay()}>
-                <p className="label text-[var(--card-muted)]">menos slop</p>
-                <ul className="mt-3 space-y-4">
-                  {result.slop.map((s) => (
-                    <li key={s.before}>
-                      <p className="font-mono text-sm text-[var(--card-muted)] line-through">
-                        {s.before}
-                      </p>
-                      <p className="mt-1 leading-relaxed">{s.after}</p>
+              <div className="dashed-rule my-6" aria-hidden />
+
+              {/* items */}
+              <div className="reveal" style={delay()}>
+                <p className="thermal-label text-center">qué hace</p>
+                <ul className="mt-3 space-y-2">
+                  {result.bullets.map((b, i) => (
+                    <li key={b} className="thermal flex gap-3">
+                      <span className="shrink-0 font-bold text-[var(--card-accent)]">
+                        {i + 1}x
+                      </span>
+                      <span>{b}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            )}
-          </div>
 
-          {/* perforated stub */}
-          <div className="perforation reveal mt-10" style={delay()}>
-            <div className="flex items-center justify-between px-8 py-5 sm:px-10">
-              <div>
-                <p className="label text-[var(--card-muted)]">
-                  hecho con carretai
-                </p>
-                <p className="label mt-1 font-semibold text-[var(--card-accent)]">
-                  echas la carreta → cachan
+              <div className="dashed-rule my-6" aria-hidden />
+
+              {/* pitch timeline */}
+              <div className="reveal" style={delay()}>
+                <p className="thermal-label text-center">tu pitch, 2 minutos</p>
+                <ol className="mt-4 space-y-4">
+                  {PITCH_STEPS.map((s) => (
+                    <li key={s.key} className="grid grid-cols-[3rem_1fr] gap-3">
+                      <span className="thermal pt-px font-bold tabular-nums text-[var(--card-accent)]">
+                        {s.time}
+                      </span>
+                      <div>
+                        <p className="thermal-label">{s.label}</p>
+                        <p className="thermal mt-0.5 [text-wrap:pretty]">
+                          {result.pitch[s.key]}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* slop rewrites */}
+              {result.slop.length > 0 && (
+                <>
+                  <div className="dashed-rule my-6" aria-hidden />
+                  <div className="reveal" style={delay()}>
+                    <p className="thermal-label text-center">menos slop</p>
+                    <ul className="mt-3 space-y-3">
+                      {result.slop.map((s) => (
+                        <li key={s.before}>
+                          <p className="thermal line-through opacity-50">
+                            {s.before}
+                          </p>
+                          <p className="thermal font-bold">{s.after}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
+
+              {/* total */}
+              <div className="dashed-rule my-6" aria-hidden />
+              <div className="reveal" style={delay()}>
+                <div className="thermal flex justify-between">
+                  <span>SUBTOTAL</span>
+                  <span>1 NOMBRE + {Math.max(result.names.length - 1, 0)} ALT</span>
+                </div>
+                <div className="thermal flex justify-between">
+                  <span></span>
+                  <span>1 HERO + {result.bullets.length} ITEMS</span>
+                </div>
+                <div className="thermal mt-1 flex justify-between font-bold">
+                  <span>TOTAL</span>
+                  <span>1 PITCH DE 2:00</span>
+                </div>
+              </div>
+
+              <p className="asterisks mt-6" aria-hidden>
+                * * * * * * * * * * * * * * * * * *
+              </p>
+              <p className="thermal-label mt-3 pb-1 text-center">
+                gracias por echar carreta
+              </p>
+            </div>
+
+            {/* perforated stub */}
+            <div className="perforation reveal mt-5" style={delay()}>
+              <div className="flex flex-col items-center gap-2 px-7 py-5">
+                <div className="barcode" aria-hidden />
+                <p className="thermal-label">hecho con carretai</p>
+                <p className="thermal-label text-[var(--card-accent)]">
+                  echas la carreta, cachan
                 </p>
               </div>
-              <div className="barcode" aria-hidden />
             </div>
-          </div>
-        </article>
+          </article>
+          <div className="sawtooth" aria-hidden />
+        </div>
       )}
-      {result && <div className="sawtooth" aria-hidden />}
     </div>
   );
 }
