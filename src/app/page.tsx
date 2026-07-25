@@ -70,37 +70,66 @@ export default function Home() {
   const hora = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-6 py-14">
+    <div className="relative mx-auto w-full max-w-3xl px-6 pb-20 pt-8">
+      <div className="machine-grid" aria-hidden />
+
       {/* workbench chrome */}
-      <header className="mb-10 flex items-baseline justify-between">
-        <h1 className="display text-2xl tracking-tight">
+      <header className="relative mb-16 flex items-baseline justify-between">
+        <h1 className="display text-xl tracking-tight">
           carretai<span className="text-[var(--accent)]">.</span>
         </h1>
-        <p className="label text-[var(--text-muted)]">echas la carreta, cachan</p>
+        <p className="label text-[var(--text-muted)]">build night bogotá</p>
       </header>
 
-      <section>
-        <label htmlFor="project" className="label text-[var(--text-muted)]">
-          tu proyecto, así como lo tienes en la cabeza
-        </label>
-        <textarea
-          id="project"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          rows={5}
-          placeholder="pega acá la descripción cruda, sin pulir, con todo el enredo…"
-          className="mt-3 w-full resize-none border-2 border-[var(--border)] bg-[var(--surface)] p-4 text-base leading-relaxed outline-none transition-[border-color] duration-[var(--duration-fast)] focus:border-[var(--accent)]"
-        />
-        <button
-          onClick={generate}
-          disabled={loading || input.trim().length < 10}
-          className="mt-4 border-2 border-[var(--accent)] px-6 py-3 font-semibold text-[var(--accent)] transition-[background-color,color,transform] duration-[var(--duration-fast)] hover:bg-[var(--accent)] hover:text-[var(--on-accent)] active:translate-y-[1px] disabled:opacity-40"
+      {/* the statement */}
+      <section className="relative">
+        <h2 className="display text-6xl leading-[0.95] tracking-tight sm:text-8xl">
+          <span className="reveal block" style={delay()}>
+            echas la
+          </span>
+          <span className="reveal block" style={delay()}>
+            carreta,
+          </span>
+          <span
+            className="reveal block text-[var(--accent)]"
+            style={delay()}
+          >
+            cachan.
+          </span>
+        </h2>
+        <p
+          className="reveal mt-6 max-w-md text-lg leading-snug text-[var(--text-muted)] [text-wrap:pretty]"
+          style={delay()}
         >
-          {loading ? "echando carreta…" : "échale carreta →"}
-        </button>
-        {error && (
-          <p className="mt-3 font-mono text-sm text-[var(--accent)]">{error}</p>
-        )}
+          pega tu proyecto enredado y sale tu pitch de 2 minutos, impreso en
+          un recibo.
+        </p>
+
+        <div className="reveal mt-12" style={delay()}>
+          <label htmlFor="project" className="label text-[var(--text-muted)]">
+            tu proyecto, así como lo tienes en la cabeza
+          </label>
+          <textarea
+            id="project"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            rows={6}
+            placeholder="pega acá la descripción cruda, sin pulir, con todo el enredo…"
+            className="mt-3 w-full resize-none border-2 border-[var(--border)] bg-[var(--surface)] p-5 font-mono text-[0.9375rem] leading-relaxed outline-none transition-[border-color] duration-[var(--duration-fast)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
+          />
+          <div className="mt-5 flex items-center gap-5">
+            <button
+              onClick={generate}
+              disabled={loading || input.trim().length < 10}
+              className="print-key"
+            >
+              {loading ? "imprimiendo…" : "échale carreta →"}
+            </button>
+            {error && (
+              <p className="font-mono text-sm text-[var(--accent)]">{error}</p>
+            )}
+          </div>
+        </div>
       </section>
 
       {/* the artifact — a literal thermal receipt */}

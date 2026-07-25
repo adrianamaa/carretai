@@ -42,6 +42,52 @@ body {
   font-family: var(--font-archivo), system-ui, sans-serif;
 }
 
+/* the machine room — faint register grid, fixed and inert */
+.machine-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(237, 237, 237, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(237, 237, 237, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 100%);
+}
+
+/* the print key */
+.print-key {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 1.1rem 2rem;
+  border: none;
+  box-shadow:
+    0 3px 0 0 #8f0a45,
+    0 10px 24px rgba(240, 26, 114, 0.25);
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+.print-key:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+.print-key:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow:
+    0 0 0 0 #8f0a45,
+    0 4px 12px rgba(240, 26, 114, 0.2);
+}
+.print-key:disabled {
+  opacity: 0.35;
+  box-shadow: 0 3px 0 0 rgba(143, 10, 69, 0.4);
+}
+
 /* display face — Archivo Black, riso poster scale */
 .display {
   font-family: var(--font-archivo-black), var(--font-archivo), sans-serif;
