@@ -137,20 +137,18 @@ export default function Home() {
 
   return (
     <div className="w-full pb-24">
-      {/* the giant wordmark, edge to edge */}
-      <header className="px-2 pt-2">
-        <h1 className="reveal" style={delay()}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/wordmark.svg"
-            alt="carretai"
-            className="w-auto"
-            style={{ height: "clamp(3.25rem, 15vw, 13.5rem)" }}
-          />
-        </h1>
-      </header>
-
-      <div className="mx-auto w-full max-w-2xl px-6">
+      <div className="mx-auto w-full max-w-2xl px-6 pt-10">
+        {/* the wordmark, aligned to the content column */}
+        <header>
+          <h1 className="reveal" style={delay()}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/wordmark.svg"
+              alt="carretai"
+              className="h-auto w-full"
+            />
+          </h1>
+        </header>
         {/* counter row */}
         <p
           className="reveal mt-5 max-w-lg text-xl leading-snug [text-wrap:pretty]"
