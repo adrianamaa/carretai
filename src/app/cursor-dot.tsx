@@ -9,11 +9,14 @@ export function CursorDot() {
     const el = ref.current;
     if (!el) return;
     const move = (e: PointerEvent) => {
-      const interactive = (e.target as Element | null)?.closest?.(
-        "button, a, textarea, input, label, summary"
-      );
+      const target = e.target as Element | null;
+      if (target?.closest?.("textarea, input")) {
+        el.style.opacity = "0";
+        return;
+      }
+      const interactive = target?.closest?.("button, a, label, summary");
       el.style.opacity = "1";
-      el.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%) scale(${interactive ? 2.4 : 1})`;
+      el.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%) scale(${interactive ? 2 : 1})`;
     };
     const hide = () => {
       el.style.opacity = "0";

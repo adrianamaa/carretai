@@ -48,8 +48,8 @@ body {
   position: fixed;
   left: 0;
   top: 0;
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: #fff;
   mix-blend-mode: difference;
@@ -66,6 +66,11 @@ body {
   }
   * {
     cursor: none !important;
+  }
+  /* text fields keep the native caret cursor so nobody gets lost */
+  textarea,
+  input {
+    cursor: text !important;
   }
 }
 
