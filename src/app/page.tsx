@@ -42,6 +42,18 @@ export default function Home() {
   const [result, setResult] = useState<Result | null>(null);
   const printerRef = useRef<HTMLDivElement>(null);
   const receiptRef = useRef<HTMLDivElement>(null);
+  const taRef = useRef<HTMLTextAreaElement>(null);
+
+  // auto-grow the composer like Claude/Gemini: no scrollbar until the cap
+  useEffect(() => {
+    const ta = taRef.current;
+    if (!ta) return;
+    ta.style.height = "auto";
+    const cap = Math.round(window.innerHeight * 0.38);
+    const next = Math.min(ta.scrollHeight, cap);
+    ta.style.height = `${next}px`;
+    ta.style.overflowY = ta.scrollHeight > cap ? "auto" : "hidden";
+  }, [input]);
 
   useEffect(() => {
     if (result) {
@@ -166,6 +178,7 @@ export default function Home() {
           {/* AI-chat composer: everything lives inside one box */}
           <div className="composer pill-box mt-3 p-3">
             <textarea
+              ref={taRef}
               id="project"
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -175,11 +188,11 @@ export default function Home() {
                   generate();
                 }
               }}
-              rows={4}
+              rows={2}
               placeholder="tu proyecto, así como lo tienes en la cabeza…"
-              className="w-full resize-none bg-transparent p-3 text-base leading-relaxed outline-none placeholder:text-[var(--text-muted)]"
+              className="min-h-[3.5rem] w-full resize-none bg-transparent px-3 pb-2 pt-3 text-base leading-relaxed outline-none placeholder:text-[var(--text-muted)]"
             />
-            <div className="flex items-center justify-end gap-2 px-2 pb-1">
+            <div className="flex items-center justify-end gap-2 px-1 pb-0.5 pt-1">
                 <button
                   onClick={toggleVoice}
                   type="button"
