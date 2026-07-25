@@ -1,38 +1,37 @@
-# Adriana Forero — Platanus Build Night — Bogotá @ Buk Project
+# carretai
 
-**Current project logo:** project-logo.png
+**carreta** (CO: *echar carreta* — to spin the story) + **cachai** (CL: *you get it?*).
+You spin the story. They get it.
 
-<img src="./project-logo.png" alt="Project Logo" width="200" />
+<img src="./project-logo.png" alt="Carretai logo" width="200" />
 
 Hacker:
 
 - Adriana Forero ([@adrianamaa](https://github.com/adrianamaa))
 
-Before submitting:
+## What it is
 
-- ✅ Set a project name, oneliner and description in build-night-project.json
-- ✅ Provide a 1000x1000 png project logo, max 500kb (project-logo.png)
-- ✅ Provide a concise and to the point readme
+Every build night ends the same way: great builds that lose the room in the first
+sentence. Carretai fixes the part engineers skip — **the story**.
 
-## ⚠️ Deploying (Vercel, Render, etc.)
+Paste a messy description of what you built. Get back:
 
-Deploy platforms like **Vercel**, **Render** or **Netlify** can only connect to
-repositories **you own** — they can't be granted access to this organization repo.
-To deploy while keeping your commits here, mirror your code to a personal repo:
+- a sharp **name** (with alternatives, and why)
+- a **one-liner** that passes the "you get it in 5 seconds" test
+- **homepage hero copy** (headline + subhead)
+- a timed **2-minute pitch outline** (hook · what · demo · why · close)
+- your generic AI-slop phrases, **rewritten like a human**
 
-1. Create a **personal** repository on your own GitHub account.
-2. Point your local `origin` at **both** repos, so a single `git push` updates each one:
+…rendered on a launch card with actual design taste, ready to keep and share.
 
-   ```bash
-   # this org repo (keep it as a push target)...
-   git remote set-url --add --push origin https://github.com/platanus-build-night/platanus-build-night-26-co-adrianamaa.git
-   # ...and your personal repo
-   git remote set-url --add --push origin https://github.com/<your-user>/<your-repo>.git
-   ```
+## Stack
 
-   From now on `git push` sends every commit to **both** repositories.
-3. Connect your deploy service (Vercel, Render, …) to your **personal** repo and deploy from there.
+Next.js 16 · Tailwind 4 · Groq (llama) · built from zero at Build Night Bogotá with Claude Code, by a designer who ships.
 
-Your commits stay mirrored here for judging, while the deploy runs from the repo you control.
+## Run it
 
-Have fun! 🚀
+```bash
+npm install
+echo "GROQ_API_KEY=gsk_..." > .env.local
+npm run dev
+```

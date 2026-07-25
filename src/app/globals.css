@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+
+  /* workbench (dark chrome) */
+  --bg: #131110;
+  --surface: #1b1815;
+  --text: #f0ece4;
+  --text-muted: rgba(240, 236, 228, 0.55);
+  --border: rgba(240, 236, 228, 0.12);
+
+  /* accent — CTA + brand marks only */
+  --accent: #f5a623;
+  --accent-hover: #e09612;
+  --on-accent: #131110;
+
+  /* the artifact (light card) */
+  --card-bg: #faf7f2;
+  --card-text: #1a1612;
+  --card-muted: rgba(26, 22, 18, 0.62);
+  --card-border: rgba(26, 22, 18, 0.14);
+  --card-accent: #b45309;
+
+  /* motion */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-default: 240ms;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* display face — Halyard (Adobe kit: 700/900 only, no 800) */
+.display {
+  font-family: "halyard-display", var(--font-geist-sans), sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+.display-bold {
+  font-family: "halyard-display", var(--font-geist-sans), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+/* mono chrome labels */
+.label {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.6875rem; /* 11px */
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* the launch card — one card, the artifact */
+.launch-card {
+  background: var(--card-bg);
+  color: var(--card-text);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.launch-card .divider {
+  border-top: 1px solid var(--card-border);
+}
+
+/* perforated bottom edge — the "keep this" cue */
+.perforation {
+  border-top: 2px dashed var(--card-border);
+  position: relative;
+}
+.perforation::before,
+.perforation::after {
+  content: "";
+  position: absolute;
+  top: -9px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+.perforation::before {
+  left: -8px;
+}
+.perforation::after {
+  right: -8px;
+}
+
+/* staggered reveal */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.reveal {
+  opacity: 0;
+  animation: rise var(--duration-default) var(--ease-out) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
