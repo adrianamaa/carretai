@@ -10,10 +10,10 @@
   --text-muted: rgba(20, 20, 19, 0.55);
   --border: #141413;
 
-  /* riso ink 2: fluoro fucsia — second print pass only */
-  --accent: #e8125f;
-  --accent-hover: #c90d50;
-  --on-accent: #ffffff;
+  /* ink 2: monks deep navy, mint on navy for CTAs — second print pass only */
+  --accent: #011e3d;
+  --accent-hover: #0a2e52;
+  --on-accent: #cdf5e6;
 
   /* the artifact (printed sheet) — paper + ink */
   --card-bg: #fafaf8;
@@ -21,7 +21,7 @@
   --ink: #161616;
   --card-muted: rgba(22, 22, 22, 0.6);
   --card-border: rgba(22, 22, 22, 0.16);
-  --card-accent: #c9005d;
+  --card-accent: #011e3d;
 
   /* motion */
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
@@ -234,13 +234,13 @@ body {
   display: inline-block;
 }
 
-/* fucsia overprint — marker sweep behind key line */
+/* ink overprint — marker sweep behind key line */
 .highlight {
   background: linear-gradient(
     180deg,
     transparent 8%,
-    rgba(240, 26, 114, 0.22) 8%,
-    rgba(240, 26, 114, 0.22) 88%,
+    rgba(205, 245, 230, 0.9) 8%,
+    rgba(205, 245, 230, 0.9) 88%,
     transparent 88%
   );
   padding: 0 0.15em;
