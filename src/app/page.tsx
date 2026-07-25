@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { MicrophoneIcon, StopIcon } from "@phosphor-icons/react";
 
 type Result = {
   names: { name: string; why: string }[];
@@ -182,14 +183,20 @@ export default function Home() {
             >
               {loading ? "imprimiendo…" : "échale carreta →"}
             </button>
-            <button onClick={toggleVoice} className="pill" type="button">
+            <button
+              onClick={toggleVoice}
+              type="button"
+              aria-label={listening ? "parar dictado" : "dictar tu proyecto"}
+              className={`flex h-[52px] w-[52px] items-center justify-center rounded-full border-[1.5px] transition-colors duration-[var(--duration-fast)] ${
+                listening
+                  ? "animate-pulse border-[var(--accent)] bg-[var(--accent)] text-[var(--on-accent)]"
+                  : "border-[var(--text)] bg-[var(--surface)] text-[var(--text)]"
+              }`}
+            >
               {listening ? (
-                <span className="inline-flex items-center gap-2">
-                  <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[var(--accent)]" />
-                  escuchando… parar
-                </span>
+                <StopIcon size={20} weight="fill" />
               ) : (
-                "dictar"
+                <MicrophoneIcon size={22} weight="regular" />
               )}
             </button>
             {error && (

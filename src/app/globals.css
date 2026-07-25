@@ -7,7 +7,7 @@
   --bg: #c4c3bf;
   --surface: #cecdc8;
   --text: #141413;
-  --text-muted: rgba(20, 20, 19, 0.55);
+  --text-muted: rgba(20, 20, 19, 0.7);
   --border: #141413;
 
   /* ink 2: monks deep navy, mint on navy for CTAs — second print pass only */
@@ -19,7 +19,7 @@
   --card-bg: #fafaf8;
   --card-text: #161616;
   --ink: #161616;
-  --card-muted: rgba(22, 22, 22, 0.6);
+  --card-muted: rgba(22, 22, 22, 0.66);
   --card-border: rgba(22, 22, 22, 0.16);
   --card-accent: #011e3d;
 
@@ -40,22 +40,33 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-archivo), system-ui, sans-serif;
-  /* registration-mark cursor — ink cross, print world */
-  cursor:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'%3E%3Cpath d='M11 0v8M11 14v8M0 11h8M14 11h8' stroke='%23141413' stroke-width='2'/%3E%3Ccircle cx='11' cy='11' r='1.7' fill='%23141413'/%3E%3C/svg%3E")
-      11 11,
-    auto;
 }
 
-/* interactive: navy registration cross with filled center */
-button,
-a,
-[role="button"],
-summary {
-  cursor:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M12 0v8M12 16v8M0 12h8M16 12h8' stroke='%23011e3d' stroke-width='2.5'/%3E%3Crect x='9.5' y='9.5' width='5' height='5' fill='%23011e3d'/%3E%3C/svg%3E")
-      12 12,
-    pointer;
+/* inverting circle cursor — shows the negative of whatever it passes over */
+.cursor-dot {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition:
+    transform 120ms var(--ease-out),
+    opacity 200ms var(--ease-out);
+}
+@media (pointer: fine) {
+  .cursor-dot {
+    display: block;
+  }
+  * {
+    cursor: none !important;
+  }
 }
 
 /* the giant wordmark — edge to edge, Uncut style */
@@ -135,7 +146,7 @@ summary {
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: rgba(38, 36, 31, 0.55);
+  color: rgba(38, 36, 31, 0.64);
 }
 .asterisks {
   font-family: var(--font-geist-mono), monospace;
